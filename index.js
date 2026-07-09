@@ -38,7 +38,7 @@ app.get("/inventario/lotes", async (req, res) => {
           LGORT AS Almacen,
           MATNR AS Material,
           CHARG AS Lote,
-          SUM(TRY_CONVERT(DECIMAL(18,3), [/CWM/CLABS])) AS CantidadReal
+          SUM(TRY_CONVERT(DECIMAL(18,3), [CLABS])) AS CantidadReal
       FROM MCHB
       WHERE 
           (
@@ -55,7 +55,7 @@ app.get("/inventario/lotes", async (req, res) => {
           LGORT,
           MATNR,
           CHARG
-      HAVING SUM(TRY_CONVERT(DECIMAL(18,3), [/CWM/CLABS])) <> 0
+      HAVING SUM(TRY_CONVERT(DECIMAL(18,3), [CLABS])) <> 0
       ORDER BY
           WERKS,
           LGORT,
@@ -83,7 +83,7 @@ app.get("/inventario/almacenes", async (req, res) => {
           WERKS AS Centro,
           LGORT AS Almacen,
           COUNT(*) AS Registros,
-          SUM(TRY_CONVERT(DECIMAL(18,3), [/CWM/CLABS])) AS CantidadTotal
+          SUM(TRY_CONVERT(DECIMAL(18,3), [CLABS])) AS CantidadTotal
       FROM MCHB
       WHERE LTRIM(RTRIM(WERKS)) IN ('PAL3', 'CCP1')
       GROUP BY
